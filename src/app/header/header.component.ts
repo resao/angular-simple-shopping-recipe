@@ -9,6 +9,10 @@ export class HeaderComponent {
     this.onSaveRecipes();
   }
 
+  onFetchClick() {
+    this.onFetchData();
+  }
+
   onSaveRecipes() {
     this
       .dataStorageService
@@ -16,5 +20,9 @@ export class HeaderComponent {
       .subscribe((response: Response) => {
         console.log(response);
       });
+  }
+
+  onFetchData() {
+    this.dataStorageService.getRecipes();
   }
 }
