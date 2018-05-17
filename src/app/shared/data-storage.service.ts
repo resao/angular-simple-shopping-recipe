@@ -2,7 +2,7 @@ import { Recipe } from './../recipes/recipe.model';
 import { RecipeService } from './../recipes/recipe.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/Rx';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DataStorageService {
@@ -16,7 +16,7 @@ export class DataStorageService {
 
   getRecipes() {
     this.http.get(this.API_URL)
-    .map(
+    .pipe(map(
       (recipes: Recipe[]) => {
         for (const recipe of recipes){
           if (!recipe['ingredients']) {
@@ -25,7 +25,7 @@ export class DataStorageService {
         }
         return recipes;
       }
-    )
+    ))
     .subscribe(
       (recipes: Recipe[]) => {
         this.recipeService.setRecipes(recipes);
