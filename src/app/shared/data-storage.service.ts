@@ -1,21 +1,33 @@
 import { Recipe } from './../recipes/recipe.model';
 import { RecipeService } from './../recipes/recipe.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment as env } from '../../environments/environment';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class DataStorageService {
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(
+    private authService: AuthService,
+    private http: HttpClient,
+    private recipeService: RecipeService) {}
 
   storeRecipes() {
-    return this.http.put(env.api_url, this.recipeService.getRecipes());
+    const token = this.authService.getToken();
+
+    return this.http.put(env.api_url, this.recipeService.getRecipes(), {
+      params: new HttpParams().set('auth', token)
+    });
   }
 
   getRecipes() {
-    this.http.get(env.api_url)
+    const token = this.authService.getToken();
+
+    this.http.get(env.api_url, {
+      params: new HttpParams().set('auth', token)
+    })
     .pipe(map(
       (recipes: Recipe[]) => {
         for (const recipe of recipes){
