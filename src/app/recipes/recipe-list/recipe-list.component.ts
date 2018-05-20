@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from '../recipe.model';
+import { AppConfig } from '../../app.config';
 
 @Component({
   selector: 'app-recipe-list',
@@ -13,7 +14,11 @@ export class RecipeListComponent implements OnInit {
   recipes: Recipe[];
   subscription: Subscription;
 
-  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private config: AppConfig,
+    private recipeService: RecipeService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.recipes = this.recipeService.getRecipes();
@@ -25,7 +30,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   onNewRecipe() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.router.navigate([this.config.urls.recipes.new.segment], {relativeTo: this.route});
   }
 
   ngOnDestroy(){

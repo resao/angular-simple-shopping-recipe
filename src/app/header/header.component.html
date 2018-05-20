@@ -5,12 +5,12 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
-        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+        <li routerLinkActive="active"><a [routerLink]="config.urls.recipes.segment">Recipes</a></li>
+        <li routerLinkActive="active"><a [routerLink]="config.urls.shoppingList.segment">Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/signup">Register</a></li>
-        <li><a routerLink="/signin">Login</a></li>
+        <li routerLinkActive="active"><a [routerLink]="config.urls.signup.segment">Register</a></li>
+        <li routerLinkActive="active"><a [routerLink]="config.urls.signin.segment">Login</a></li>
         <li class="dropdown" appDropdown>
           <a class="dropdown-toggle" role="button" style="cursor:pointer;">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">

@@ -1,3 +1,4 @@
+import { AppConfig } from './app.config';
 import { DataStorageService } from './shared/data-storage.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
@@ -43,7 +44,7 @@ import { AuthService } from './auth/auth.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService, AuthService],
+  providers: [AppConfig, ShoppingListService, RecipeService, DataStorageService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

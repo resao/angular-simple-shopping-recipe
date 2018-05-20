@@ -6,18 +6,22 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { SignupinComponent } from './auth/signupin/signupin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppConfig } from './app.config';
+
+const AppUrls = new AppConfig().urls;
+const RecipeEditUrl = AppUrls.recipes.id.segment + '/' + AppUrls.recipes.edit.segment;
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  {path: 'recipes', component: RecipesComponent, children: [
+  {path: '', redirectTo: AppUrls.recipes.segment, pathMatch: 'full' },
+  {path: AppUrls.recipes.segment, component: RecipesComponent, children: [
     {path: '', component: RecipeStartComponent },
-    {path: 'new', component: RecipeEditComponent},
-    {path: ':id', component: RecipeDetailComponent},
-    {path: ':id/edit', component: RecipeEditComponent}
+    {path: AppUrls.recipes.new.segment, component: RecipeEditComponent},
+    {path: AppUrls.recipes.id.segment, component: RecipeDetailComponent},
+    {path: RecipeEditUrl, component: RecipeEditComponent}
   ]},
-  {path: 'shopping-list', component: ShoppingListComponent},
-  {path: 'signup', component: SignupinComponent },
-  {path: 'signin', component: SignupinComponent },
+  {path: AppUrls.shoppingList.segment, component: ShoppingListComponent},
+  {path: AppUrls.signup.segment, component: SignupinComponent },
+  {path: AppUrls.signin.segment, component: SignupinComponent },
 ];
 
 @NgModule({
