@@ -22,8 +22,10 @@
       </button>
       <ul class="dropdown-menu">
         <li><a (click)="onAddToShoppingList()" style="cursor:pointer;">Add To Shopping List</a></li>
-        <li><a style="cursor:pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
-        <li><a style="cursor:pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+        <ng-template [ngIf]="authService.isAuthenticated()">
+          <li><a style="cursor:pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
+          <li><a style="cursor:pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+        </ng-template>
       </ul>
     </div>
   </div>

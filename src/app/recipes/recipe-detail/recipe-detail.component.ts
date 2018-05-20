@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
 import { AppConfig } from '../../app.config';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,6 +15,7 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
 
   constructor(
+    private authService: AuthService,
     private config: AppConfig,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
