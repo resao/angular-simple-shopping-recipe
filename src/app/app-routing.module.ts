@@ -10,16 +10,9 @@ import { AppConfig } from './app.config';
 import { AuthGuard } from './auth/auth-guard.service';
 
 const AppUrls = new AppConfig().urls;
-const RecipeEditUrl = AppUrls.recipes.id.segment + '/' + AppUrls.recipes.edit.segment;
 
 const appRoutes: Routes = [
   {path: '', redirectTo: AppUrls.recipes.segment, pathMatch: 'full' },
-  {path: AppUrls.recipes.segment, component: RecipesComponent, children: [
-    {path: '', component: RecipeStartComponent },
-    {path: AppUrls.recipes.new.segment, component: RecipeEditComponent, canActivate: [AuthGuard]},
-    {path: AppUrls.recipes.id.segment, component: RecipeDetailComponent},
-    {path: RecipeEditUrl, component: RecipeEditComponent, canActivate: [AuthGuard]}
-  ]},
   {path: AppUrls.shoppingList.segment, component: ShoppingListComponent},
   {path: AppUrls.signup.segment, component: SignupinComponent },
   {path: AppUrls.signin.segment, component: SignupinComponent },
