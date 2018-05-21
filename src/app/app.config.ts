@@ -7,6 +7,7 @@ export class AppConfig {
       id: {
         segment: ':id'
       },
+      modulePath: './recipes/recipes.module#RecipesModule',
       new : {
         segment: 'new'
       },

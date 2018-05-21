@@ -12,7 +12,7 @@ const AppUrls = new AppConfig().urls;
 const RecipeEditUrl = AppUrls.recipes.id.segment + '/' + AppUrls.recipes.edit.segment;
 
 const recipesRoutes: Routes = [
-  {path: AppUrls.recipes.segment, component: RecipesComponent, children: [
+  {path: '', component: RecipesComponent, children: [
     {path: '', component: RecipeStartComponent },
     {path: AppUrls.recipes.new.segment, component: RecipeEditComponent, canActivate: [AuthGuard]},
     {path: AppUrls.recipes.id.segment, component: RecipeDetailComponent},
