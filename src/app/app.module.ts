@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppConfig } from './app.config';
 
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -15,21 +16,18 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    CoreModule
   ],
   providers: [
     AppConfig,
