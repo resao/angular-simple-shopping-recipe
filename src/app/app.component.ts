@@ -8,19 +8,10 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent  {
   loadedFeature = 'recipe';
 
   constructor(private authService: AuthService) { }
-
-  ngOnInit() {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyB7PTdvK6rRopjc0UiM7b03_6z33vquPEU',
-      authDomain: 'ng-recipe-book-c67db.firebaseapp.com'
-    });
-
-    firebase.auth().onAuthStateChanged(() => this.authService.getToken());
-  }
 
   onNavigate(feature: string) {
     this.loadedFeature = feature;

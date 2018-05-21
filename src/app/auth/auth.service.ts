@@ -6,7 +6,19 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   token: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyB7PTdvK6rRopjc0UiM7b03_6z33vquPEU',
+      authDomain: 'ng-recipe-book-c67db.firebaseapp.com'
+    });
+
+    // If the user signs in, set the token
+    firebase.auth().onAuthStateChanged(() => {
+      if (firebase.auth().currentUser) {
+        this.getToken();
+      }
+    });
+  }
 
   signupUser(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
