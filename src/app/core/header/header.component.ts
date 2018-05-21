@@ -1,14 +1,20 @@
-import {DataStorageService} from './../../shared/data-storage.service';
-import {Component} from '@angular/core';
-import {Response} from '@angular/http';
-import { AppConfig } from '../../app.config';
+import { DataStorageService } from './../../shared/data-storage.service';
+import { Component } from '@angular/core';
+import { Response } from '@angular/http';
 import { AuthService } from '../../auth/auth.service';
+import { AppConfig as config } from '../../app.config';
 
-@Component({selector: 'app-header', templateUrl: './header.component.html', styleUrls: ['./header.component.css']})
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
+})
+
 export class HeaderComponent {
+  config = config;
+
   constructor(
-    private config: AppConfig,
-    private authService: AuthService,
+    public authService: AuthService,
     private dataStorageService: DataStorageService) {}
 
   onSaveClick() {

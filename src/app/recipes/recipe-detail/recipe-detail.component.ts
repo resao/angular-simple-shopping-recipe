@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
-import { AppConfig } from '../../app.config';
+import { AppConfig as config } from '../../app.config';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -15,8 +15,7 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
 
   constructor(
-    private authService: AuthService,
-    private config: AppConfig,
+    public authService: AuthService,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -35,12 +34,12 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditRecipe() {
-    this.router.navigate([this.config.urls.recipes.edit.segment], {relativeTo: this.route});
+    this.router.navigate([config.urls.recipes.edit.segment], {relativeTo: this.route});
   }
 
   onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.id);
-    this.router.navigate([this.config.urls.recipes.segment]);
+    this.router.navigate([config.urls.recipes.segment]);
   }
 
 }

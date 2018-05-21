@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from '../recipe.model';
-import { AppConfig } from '../../app.config';
+import { AppConfig as config } from '../../app.config';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -16,8 +16,7 @@ export class RecipeListComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private authService: AuthService,
-    private config: AppConfig,
+    public authService: AuthService,
     private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -32,7 +31,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   onNewRecipe() {
-    this.router.navigate([this.config.urls.recipes.new.segment], {relativeTo: this.route});
+    this.router.navigate([config.urls.recipes.new.segment], {relativeTo: this.route});
   }
 
   ngOnDestroy(){

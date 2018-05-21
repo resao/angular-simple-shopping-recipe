@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { AppConfig } from '../app.config';
-
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
@@ -26,12 +24,11 @@ import { AuthService } from '../auth/auth.service';
     HeaderComponent
   ],
   providers: [
-    AppConfig,
     ShoppingListService,
     RecipeService,
     DataStorageService,
-    AuthService,
-  ],
+    AuthService
+  ]
 })
 
 export class CoreModule {}

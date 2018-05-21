@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { AppConfig } from '../../app.config';
+import { AppComponent } from '../../app.component';
+import { AppConfig as config } from '../../app.config';
 
 @Component({
   selector: 'app-signupin',
   templateUrl: './signupin.component.html'
 })
 export class SignupinComponent implements OnInit {
-  private isSignup: Boolean = true;
+  isSignup: Boolean = true;
+  config = config;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private config: AppConfig) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const id = this.route.url.subscribe(
       (url: UrlSegment[]) => {
-        if (url.some(e => e.path !== this.config.urls.signup.segment)) {
+        if (url.some(e => e.path !== config.urls.signup.segment)) {
           this.isSignup = false;
         }
       }

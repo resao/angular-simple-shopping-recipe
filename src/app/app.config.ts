@@ -1,5 +1,5 @@
-export class AppConfig {
-  urls = {
+export const AppConfig = {
+  urls : {
     recipes : {
       edit: {
         segment: 'edit'
