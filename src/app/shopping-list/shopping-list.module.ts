@@ -4,8 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list.component';
-
-
+import { ShoppingListRoutingModule } from './shopping-list-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +13,8 @@ import { ShoppingListComponent } from './shopping-list.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ShoppingListRoutingModule
   ]
 })
 export class ShoppingListModule {}
