@@ -1,4 +1,3 @@
-import { Subscription } from 'rxjs';
 import { ShoppingListService } from './../shopping-list.service';
 import { Ingredient } from './../../shared/ingredient.model';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -14,8 +13,8 @@ import * as fromShoppingList from '../store/shopping-list.reducers';
 })
 export class ShoppingEditComponent implements OnInit {
   @ViewChild('f') slForm: NgForm;
-  subscription: Subscription;
   editMode = false;
+  editedItemIndex: number;
   editedItem: Ingredient;
 
   constructor(
@@ -59,9 +58,5 @@ export class ShoppingEditComponent implements OnInit {
   onDelete() {
     this.store.dispatch(new ShoppingListActions.DeleteIngredient(this.editedItemIndex));
     this.onClear();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
