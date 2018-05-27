@@ -16,11 +16,11 @@ export class AuthService {
     });
 
     // If the user signs in, set the token
-    firebase.auth().onAuthStateChanged(() => {
+    /*firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser) {
         this.getToken();
       }
-    });
+    });*/
   }
 
   signupUser(email: string, password: string) {
