@@ -28,23 +28,23 @@ export class DataStorageService {
   }
 
   getRecipes() {
-    this.store.select('auth').pipe(map((authState: fromAuth.State) => {
+    return this.store.select('auth').pipe(switchMap((authState: fromAuth.State) => {
       return this.http.get(env.api_url, {
         params: new HttpParams().set('auth', authState.token)
-      }).pipe(map(
-        (recipes: Recipe[]) => {
-          for (const recipe of recipes){
-            if (!recipe['ingredients']) {
-              recipe['ingredients'] = [];
-            }
+      })
+    })).pipe(map(
+      (recipes: Recipe[]) => {
+        for (const recipe of recipes){
+          if (!recipe['ingredients']) {
+            recipe['ingredients'] = [];
           }
-          return recipes;
         }
-      )).subscribe(
-        (recipes: Recipe[]) => {
-          this.recipeService.setRecipes(recipes);
-        }
-      )
-    }))
+        return recipes;
+      }
+    )).subscribe(
+      (recipes: Recipe[]) => {
+        this.recipeService.setRecipes(recipes);
+      }
+    )
   }
 }
