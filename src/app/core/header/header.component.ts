@@ -1,8 +1,14 @@
-import { DataStorageService } from './../../shared/data-storage.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
-import { AuthService } from '../../auth/auth.service';
+
+import { Store } from '@ngrx/store';
+
 import { AppConfig as config } from '../../app.config';
+import { DataStorageService } from './../../shared/data-storage.service';
+import { AuthService } from '../../auth/auth.service';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +16,18 @@ import { AppConfig as config } from '../../app.config';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   config = config;
+  authState: Observable<fromAuth.State>;
 
   constructor(
     public authService: AuthService,
-    private dataStorageService: DataStorageService) {}
+    private dataStorageService: DataStorageService,
+    private store: Store<fromApp.AppState>) {}
+
+  ngOnInit() {
+    this.authState = this.store.select('auth');
+  }
 
   onSaveClick() {
     this.onSaveRecipes();
