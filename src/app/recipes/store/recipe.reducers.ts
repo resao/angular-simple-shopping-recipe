@@ -1,3 +1,4 @@
+import * as RecipeActions from './recipe.actions';
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
 
@@ -30,26 +31,37 @@ const initialState: State = {
   ]
 };
 
-export function recipeReducer(state = initialState, action/*: AuthActions.AuthActions*/) {
-  /*switch (action.type) {
-    case(AuthActions.SIGNUP):
-    case(AuthActions.SIGNIN):
+export function recipeReducer(state = initialState, action: RecipeActions.RecipeActions) {
+  switch (action.type) {
+    case(RecipeActions.SET_RECIPES):
       return {
         ...state,
-        authenticated: true
+        recipes: [...action.payload]
       };
-    case(AuthActions.LOGOUT):
+    case(RecipeActions.ADD_RECIPE):
       return {
         ...state,
-        token: null,
-        authenticated: false
+        recipes: [...state.recipes, action.payload]
       };
-    case(AuthActions.SET_TOKEN):
+    case(RecipeActions.UPDATE_RECIPE):
+      const selectedRecipe = state.recipes[action.payload.index];
+      const updatedRecipe = {
+        ...selectedRecipe,
+        ...action.payload.updatedRecipe
+      };
+      const recipes = [...state.recipes];
+      recipes[action.payload.index] = updatedRecipe;
       return {
         ...state,
-        token: action.payload
+        recipes: recipes
+      }
+    case(RecipeActions.DELETE_RECIPE):
+      const updatedRecipes = [...state.recipes].splice(action.payload.index, 1);
+      return {
+        ...state,
+        recipes: updatedRecipes
       }
     default:
       return state;
-  }*/
+  }
 }
