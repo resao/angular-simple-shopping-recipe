@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 import { RecipesComponent } from './recipes.component';
@@ -26,8 +25,7 @@ import { recipeReducer } from './store/recipe.reducers';
     CommonModule,
     ReactiveFormsModule,
     RecipesRoutingModule,
-    SharedModule,
-    StoreModule.forFeature('recipes', recipeReducer)
+    SharedModule
   ]
 })
 export class RecipesModule {}

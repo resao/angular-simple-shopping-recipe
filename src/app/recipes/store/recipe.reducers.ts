@@ -2,10 +2,6 @@ import * as RecipeActions from './recipe.actions';
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
 
-export interface FeatureState {
-  recipes: State
-}
-
 export interface State {
   recipes: Recipe[]
 }
