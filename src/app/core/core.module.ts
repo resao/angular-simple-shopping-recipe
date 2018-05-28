@@ -6,9 +6,6 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 
-import { DataStorageService } from '../shared/data-storage.service';
-import { RecipeService } from '../recipes/recipe.service';
-
 firebase.initializeApp({
   apiKey: 'AIzaSyB7PTdvK6rRopjc0UiM7b03_6z33vquPEU',
   authDomain: 'ng-recipe-book-c67db.firebaseapp.com'
@@ -33,10 +30,6 @@ firebase.initializeApp({
   exports: [
     AppRoutingModule,
     HeaderComponent
-  ],
-  providers: [
-    RecipeService,
-    DataStorageService
   ]
 })
 
