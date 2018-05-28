@@ -8,6 +8,6 @@
 </ng-template>
 <div class="row">
   <div class="col-xs-12">
-    <app-recipe-item *ngFor="let recipeEl of recipes; let i = index" [recipe]="recipeEl" [index]="i"></app-recipe-item>
+    <app-recipe-item *ngFor="let recipeEl of (recipesState | async).recipes; let i = index" [recipe]="recipeEl" [index]="i"></app-recipe-item>
   </div>
 </div>
