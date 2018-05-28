@@ -69,6 +69,7 @@ export class AuthEffects {
   authLogout = this.actions$
     .ofType(AuthActions.LOGOUT)
     .pipe(tap(() => {
+      firebase.auth().signOut();
       this.router.navigate(['/'])
     }));
 
