@@ -8,7 +8,6 @@ import { AppRoutingModule } from '../app-routing.module';
 
 import { DataStorageService } from '../shared/data-storage.service';
 import { RecipeService } from '../recipes/recipe.service';
-import { AuthService } from '../auth/auth.service';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyB7PTdvK6rRopjc0UiM7b03_6z33vquPEU',
@@ -37,8 +36,7 @@ firebase.initializeApp({
   ],
   providers: [
     RecipeService,
-    DataStorageService,
-    AuthService
+    DataStorageService
   ]
 })
 
