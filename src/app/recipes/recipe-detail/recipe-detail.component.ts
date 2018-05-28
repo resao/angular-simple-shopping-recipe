@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RecipeService } from './../recipe.service';
@@ -10,6 +11,7 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
+import * as fromRecipes from '../store/recipe.reducers';
 
 
 @Component({
@@ -18,7 +20,7 @@ import * as fromAuth from '../../auth/store/auth.reducers';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  recipe: Recipe;
+  recipe$: Observable<Recipe>;
   id: number;
   authState: Observable<fromAuth.State>;
 
@@ -33,13 +35,22 @@ export class RecipeDetailComponent implements OnInit {
     const id = this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.recipe = this.recipeService.getRecipe(this.id);
+        this.recipe$ = this.store.select('recipes').pipe(
+          take(1),
+          map((recipesState: fromRecipes.State) => {
+            return recipesState.recipes[this.id];
+          })
+        );
       }
     );
   }
 
   onAddToShoppingList() {
-    this.store.dispatch(new ShoppingListActions.AddIngredients(this.recipe.ingredients));
+    this.store.select('recipes').pipe(take(1))
+      .subscribe((recipesState: fromRecipes.State) => {
+        this.store.dispatch(new ShoppingListActions.AddIngredients(
+          recipesState.recipes[this.id].ingredients));
+      })
   }
 
   onEditRecipe() {
