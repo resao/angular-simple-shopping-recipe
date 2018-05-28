@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
@@ -12,6 +12,7 @@ import { Recipe } from '../recipe.model';
 import * as RecipeActions from './recipe.actions';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromApp from '../../store/app.reducers';
+import * as fromRecipe from './recipe.reducers';
 
 @Injectable()
 export class RecipeEffects {
@@ -20,10 +21,8 @@ export class RecipeEffects {
     .ofType(RecipeActions.FETCH_RECIPES)
     .pipe(
       take(1),
-      switchMap((action: RecipeActions.FetchRecipes) => {
-        return this.store.select('auth')
-      }),
-      switchMap((authState: fromAuth.State) => {
+      withLatestFrom(this.store.select('auth')),
+      switchMap(([action, authState]) => {
         return this.http.get(env.api_url, {
           params: new HttpParams().set('auth', authState.token)
         })
@@ -41,6 +40,19 @@ export class RecipeEffects {
           }
         }
       )
+    );
+
+  @Effect({dispatch: false})
+  recipeStore= this.actions$
+    .ofType(RecipeActions.STORE_RECIPES)
+    .pipe(
+      take(1),
+      withLatestFrom(this.store.select('recipes'), this.store.select('auth')),
+      switchMap(([action, recipeState, authState]) => {
+        return this.http.put(env.api_url, recipeState.recipes, {
+          params: new HttpParams().set('auth', authState.token)
+        });
+      })
     );
 
   constructor(
