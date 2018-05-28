@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { switchMap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { map, take, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { Recipe } from './../recipes/recipe.model';
@@ -20,7 +19,7 @@ export class DataStorageService {
     private recipeService: RecipeService) {}
 
   storeRecipes() {
-    return this.store.select('auth').pipe(switchMap((authState: fromAuth.State) => {
+    return this.store.select('auth').pipe(take(1), switchMap((authState: fromAuth.State) => {
       return this.http.put(env.api_url, this.recipeService.getRecipes(), {
         params: new HttpParams().set('auth', authState.token)
       });
@@ -28,7 +27,7 @@ export class DataStorageService {
   }
 
   getRecipes() {
-    return this.store.select('auth').pipe(switchMap((authState: fromAuth.State) => {
+    return this.store.select('auth').pipe(take(1), switchMap((authState: fromAuth.State) => {
       return this.http.get(env.api_url, {
         params: new HttpParams().set('auth', authState.token)
       })
