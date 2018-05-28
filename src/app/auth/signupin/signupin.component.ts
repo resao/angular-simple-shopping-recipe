@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { AppComponent } from '../../app.component';
 import { AppConfig as config } from '../../app.config';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../store/app.reducers';
+import * as AuthActions from '../store/auth.actions';
 
 @Component({
   selector: 'app-signupin',
@@ -13,7 +16,7 @@ export class SignupinComponent implements OnInit {
   isSignup: Boolean = true;
   config = config;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(private store: Store<fromApp.AppState>, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const id = this.route.url.subscribe(
@@ -30,9 +33,9 @@ export class SignupinComponent implements OnInit {
     const password = form.value.password;
 
     if (this.isSignup) {
-      this.authService.signupUser(email, password);
+      this.store.dispatch(new AuthActions.TrySignup({username: email, password}));
     } else {
-      this.authService.signinUser(email, password);
+      this.store.dispatch(new AuthActions.TrySignin({username: email, password}));
     }
   }
 }
