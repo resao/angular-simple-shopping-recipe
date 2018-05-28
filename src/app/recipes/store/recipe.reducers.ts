@@ -47,7 +47,7 @@ export function recipeReducer(state = initialState, action: RecipeActions.Recipe
         recipes: recipes
       }
     case(RecipeActions.DELETE_RECIPE):
-      const updatedRecipes = [...state.recipes].splice(action.payload.index, 1);
+      const updatedRecipes = [...state.recipes].splice(action.payload, 1);
       return {
         ...state,
         recipes: updatedRecipes

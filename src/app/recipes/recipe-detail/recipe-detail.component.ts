@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
 import { AppConfig as config } from '../../app.config';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-
+import * as RecipeActions from '../store/recipe.actions';
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromRecipes from '../store/recipe.reducers';
@@ -25,14 +24,13 @@ export class RecipeDetailComponent implements OnInit {
   authState: Observable<fromAuth.State>;
 
   constructor(
-    private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.authState = this.store.select('auth');
-    const id = this.route.params.subscribe(
+    this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
         this.recipe$ = this.store.select('recipes').pipe(
@@ -58,7 +56,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
+    this.store.dispatch(new RecipeActions.DeleteRecipe(this.id));
     this.router.navigate([config.urls.recipes.segment]);
   }
 
