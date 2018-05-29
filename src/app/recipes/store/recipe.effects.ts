@@ -11,8 +11,7 @@ import { environment as env } from '../../../environments/environment';
 import { Recipe } from '../recipe.model';
 import * as RecipeActions from './recipe.actions';
 import * as fromAuth from '../../auth/store/auth.reducers';
-import * as fromApp from '../../store/app.reducers';
-import * as fromRecipe from './recipe.reducers';
+import * as fromRecipes from './recipe.reducers';
 
 @Injectable()
 export class RecipeEffects {
@@ -56,7 +55,7 @@ export class RecipeEffects {
     );
 
   constructor(
-    private store: Store<fromApp.AppState>,
+    private store: Store<fromRecipes.FeatureState>,
     private actions$: Actions,
     private http: HttpClient,
     private router: Router) { }

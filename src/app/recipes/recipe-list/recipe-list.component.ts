@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 
 import { AppConfig as config } from '../../app.config';
 
-import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromRecipes from '../store/recipe.reducers';
 
@@ -21,7 +20,7 @@ export class RecipeListComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private appStore: Store<fromApp.AppState>) { }
+    private appStore: Store<fromRecipes.FeatureState>) { }
 
   ngOnInit() {
     this.authState = this.appStore.select('auth');

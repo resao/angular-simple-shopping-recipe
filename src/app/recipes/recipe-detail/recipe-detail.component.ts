@@ -8,7 +8,6 @@ import { Recipe } from './../recipe.model';
 import { AppConfig as config } from '../../app.config';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 import * as RecipeActions from '../store/recipe.actions';
-import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromRecipes from '../store/recipe.reducers';
 
@@ -26,7 +25,7 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromApp.AppState>) { }
+    private store: Store<fromRecipes.FeatureState>) { }
 
   ngOnInit() {
     this.authState = this.store.select('auth');
