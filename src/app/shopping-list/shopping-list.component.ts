@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { Ingredient } from '../shared/ingredient.model';
 import * as ShoppingListActions from './store/shopping-list.actions';
-import * as fromApp from '../store/app.reducers';
+import * as fromShoppingList from './store/shopping-list.reducers';
 
 @Component({
   selector: 'app-shopping-list',
@@ -15,7 +15,7 @@ export class ShoppingListComponent implements OnInit {
   shoppingListState: Observable<{ingredients: Ingredient[]}>;
   private subscription: Subscription;
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromShoppingList.FeatureState>) { }
 
   ngOnInit() {
     this.shoppingListState = this.store.select('shoppingList');

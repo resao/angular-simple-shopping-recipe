@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListRoutingModule } from './shopping-list-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './store/shopping-list.reducers';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { ShoppingListRoutingModule } from './shopping-list-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    ShoppingListRoutingModule
+    ShoppingListRoutingModule,
+    StoreModule.forFeature('shoppingList', shoppingListReducer)
   ]
 })
 export class ShoppingListModule {}

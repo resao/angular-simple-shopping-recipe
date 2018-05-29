@@ -1,5 +1,10 @@
 import * as ShoppingListActions from './shopping-list.actions';
 import { Ingredient } from '../../shared/ingredient.model';
+import * as fromApp from '../../store/app.reducers';
+
+export interface FeatureState extends fromApp.AppState {
+  shoppingList: State
+}
 
 export interface State {
   ingredients: Ingredient[];
