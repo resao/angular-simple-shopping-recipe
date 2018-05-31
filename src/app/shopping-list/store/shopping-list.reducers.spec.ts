@@ -5,6 +5,7 @@ import { Ingredient } from '../../shared/ingredient.model';
 describe('ShoppingListReducer', () => {
   const { initialState } = fromShoppingList;
 
+  const editIndex = 1;
   const ingredient: Ingredient = {
     name: 'Bananas',
     amount: 20
@@ -42,12 +43,26 @@ describe('ShoppingListReducer', () => {
         expect(state.ingredients).toEqual([...initialState.ingredients, ...ingredients]);
       });
     });
+
+    describe('UPDATE_INGREDIENT action', () => {
+      it('should update the ingredient', () => {
+        const previousState = {
+          ...initialState,
+          editedIngredient: null,
+          editedIngredientIndex: editIndex
+        };
+        const action = new fromActions.UpdateIngredient({ingredient});
+        const state = fromShoppingList.shoppingListReducer(previousState, action);
+
+        expect(state.ingredients.length).toEqual(2);
+        expect(state.ingredients[editIndex]).toEqual(ingredient);
+      });
+    });
   });
 
   describe('Edit Actions', () => {
     describe('START_EDIT action', () => {
       it('should set the edited ingredient and index', () => {
-        const editIndex = 1;
         const action = new fromActions.StartEdit(editIndex);
         const state = fromShoppingList.shoppingListReducer(initialState, action);
 
@@ -64,7 +79,7 @@ describe('ShoppingListReducer', () => {
         const previousState: fromShoppingList.State = {
           ...initialState,
           editedIngredient: {...ingredient},
-          editedIngredientIndex: 1
+          editedIngredientIndex: editIndex
         };
         const action = new fromActions.StopEdit();
         const state = fromShoppingList.shoppingListReducer(previousState, action);
