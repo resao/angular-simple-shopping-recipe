@@ -23,18 +23,32 @@ describe('ShoppingListReducer', () => {
   });
 
   describe('Edit Actions', () => {
+    describe('START_EDIT action', () => {
+      it('should set the edited ingredient and index', () => {
+        const editIndex = 1;
+        const action = new fromActions.StartEdit(editIndex);
+        const state = fromShoppingList.shoppingListReducer(initialState, action);
+
+        expect(state).toEqual({
+          ...initialState,
+          editedIngredient: {...initialState.ingredients[editIndex]},
+          editedIngredientIndex: editIndex
+        });
+      });
+    });
+
     describe('STOP_EDIT action', () => {
       it('should reset edited ingredient and index', () => {
         const previousState: fromShoppingList.State = {
           ...initialState,
           editedIngredient: {...ingredient},
-          editedIngredientIndex: 2
+          editedIngredientIndex: 1
         };
         const action = new fromActions.StopEdit();
         const state = fromShoppingList.shoppingListReducer(previousState, action);
 
         expect(state).toEqual(initialState);
       });
-    })
+    });
   });
 });
