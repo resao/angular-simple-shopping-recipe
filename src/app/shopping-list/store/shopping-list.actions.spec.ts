@@ -1,7 +1,7 @@
 import * as fromShoppingList from './shopping-list.actions';
 import { Ingredient } from '../../shared/ingredient.model';
 
-const ingredient = {
+const ingredient: Ingredient = {
   name: 'Tomatoes',
   amount: 5
 };

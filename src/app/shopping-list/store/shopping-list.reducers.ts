@@ -12,7 +12,7 @@ export interface State {
   editedIngredientIndex: number;
 }
 
-const initialState: State = {
+export const initialState: State = {
   ingredients: [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
