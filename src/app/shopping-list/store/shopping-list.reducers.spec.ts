@@ -21,12 +21,25 @@ describe('ShoppingListReducer', () => {
 
   describe('Ingredient Actions', () => {
     describe('ADD_INGREDIENT action', () => {
-      it('should set the edited ingredient and index', () => {
+      it('should add the new ingredient to the ingredients array', () => {
         const action = new fromActions.AddIngredient(ingredient);
         const state = fromShoppingList.shoppingListReducer(initialState, action);
 
         expect(state.ingredients.length).toEqual(3);
         expect(state.ingredients).toEqual([...initialState.ingredients, ingredient]);
+      });
+    });
+
+    describe('ADD_INGREDIENTS action', () => {
+      it('should add the new ingredients to the ingredients array', () => {
+        const ingredients: Ingredient[] = [];
+        ingredients.push(ingredient, ingredient, ingredient);
+
+        const action = new fromActions.AddIngredients(ingredients);
+        const state = fromShoppingList.shoppingListReducer(initialState, action);
+
+        expect(state.ingredients.length).toEqual(5);
+        expect(state.ingredients).toEqual([...initialState.ingredients, ...ingredients]);
       });
     });
   });
