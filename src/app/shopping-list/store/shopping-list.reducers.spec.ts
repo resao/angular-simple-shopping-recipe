@@ -58,6 +58,18 @@ describe('ShoppingListReducer', () => {
         expect(state.ingredients[editIndex]).toEqual(ingredient);
       });
     });
+
+    describe('DELETE_INGREDIENT action', () => {
+      it('should delete the ingredient', () => {
+        const newIngredients = [...initialState.ingredients];
+        newIngredients.splice(editIndex, 1);
+        const action = new fromActions.DeleteIngredient(editIndex);
+        const state = fromShoppingList.shoppingListReducer(initialState, action);
+
+        expect(state.ingredients.length).toEqual(1);
+        expect(state.ingredients).toEqual(newIngredients);
+      });
+    });
   });
 
   describe('Edit Actions', () => {
